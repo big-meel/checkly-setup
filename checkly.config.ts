@@ -1,5 +1,15 @@
 import { defineConfig } from 'checkly'
 import { AlertEscalationBuilder, RetryStrategyBuilder } from 'checkly/constructs'
+import { EmailAlertChannel } from 'checkly/constructs'
+
+const sendDefaults = { sendFailure: true }
+
+const emailChannel = new EmailAlertChannel('email-channel-1', {
+  /* Add your email address below to be alerted of failed tests */
+  address: 'alerts@acme.com',
+  ...sendDefaults
+})
+
 
 /**
  * See https://www.checklyhq.com/docs/cli/project-structure/
@@ -29,6 +39,8 @@ const config = defineConfig({
     retryStrategy: RetryStrategyBuilder.fixedStrategy({ baseBackoffSeconds: 60, maxRetries: 4, sameRegion: true }),
     /* All checks will have this alert escalation policy defined */
     alertEscalationPolicy: AlertEscalationBuilder.runBasedEscalation(1),
+    /* You will be alerted via an email when tests fail */
+    alertChannels: [emailChannel]
     /* A glob pattern that matches the Checks inside your repo, see https://www.checklyhq.com/docs/cli/using-check-test-match/ */
     checkMatch: '**/__checks__/**/*.check.ts',
     /* Global configuration option for Playwright-powered checks. See https://docs/browser-checks/playwright-test/#global-configuration */
