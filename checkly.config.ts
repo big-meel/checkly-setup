@@ -40,7 +40,7 @@ const config = defineConfig({
     /* All checks will have this alert escalation policy defined */
     alertEscalationPolicy: AlertEscalationBuilder.runBasedEscalation(1),
     /* You will be alerted via an email when tests fail */
-    alertChannels: [emailChannel]
+    alertChannels: [emailChannel],
     /* A glob pattern that matches the Checks inside your repo, see https://www.checklyhq.com/docs/cli/using-check-test-match/ */
     checkMatch: '**/__checks__/**/*.check.ts',
     /* Global configuration option for Playwright-powered checks. See https://docs/browser-checks/playwright-test/#global-configuration */
