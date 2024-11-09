@@ -1,0 +1,49 @@
+# This GitHub Actions workflow triggers after receiving a Deployment Status event from GH Actions environment. This works
+# with providers like Vercel, Heroku and others. This workflow does the following
+#
+# - Runs after deployment event
+# - Uses the environment_url provided in the deployment event
+# - Dry run all the checks on Checkly
+# - If the dry run passes, deploy the checks.
+#
+#  You can of course trigger the Checkly CLI in other workflows or steps inside your GH Action configuration.
+name: 'checkly'
+on:
+  push:
+    branches:
+      - main
+
+env:
+  CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
+  CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
+  ENVIRONMENT_URL: ${{ secrets.ENVIRONMENT_URL }}
+
+jobs:
+  deploy-checks:
+    name: Deploy to Checkly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: Restore or cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
+      # - name: Run checks 
+      #   id: run-checks
+      #   run: npx checkly -v && npx checkly test -e ENVIRONMENT_URL=${{ env.ENVIRONMENT_URL }} --reporter=github --record
+      # - name: Create summary # export the markdown report to the job summary.
+      #   id: create-summary
+      #   run: cat checkly-github-report.md > $GITHUB_STEP_SUMMARY
+      # - name: Deploy checks # if the test run was successful and we are on Production, deploy the checks
+      #   id: deploy-checks
+      - name: Run checkly tests
+        run: npx checkly test
