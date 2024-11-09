@@ -1,6 +1,10 @@
 import { defineConfig } from 'checkly'
-import { AlertEscalationBuilder, RetryStrategyBuilder } from 'checkly/constructs'
-import { EmailAlertChannel } from 'checkly/constructs'
+import { 
+  AlertEscalationBuilder, 
+  RetryStrategyBuilder, 
+  EmailAlertChannel, 
+  Frequency 
+} from 'checkly/constructs'
 
 const sendDefaults = { sendFailure: true }
 
@@ -56,6 +60,7 @@ const config = defineConfig({
       * can just write native Playwright code. See https://www.checklyhq.com/docs/cli/using-check-test-match/
       * */
       testMatch: '**/__checks__/**/*.spec.ts',
+      frequency: Frequency.EVERY_12H,
     },
   },
   cli: {
