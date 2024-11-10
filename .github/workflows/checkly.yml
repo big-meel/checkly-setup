@@ -39,5 +39,5 @@ jobs:
         run: npm ci
       - name: Run checkly tests
         run: npx checkly test
-      - name: Deploy to checkly Account
-        run: npx checkly deploy
+      - name: Deploy to checkly Account and skip confirmation
+        run: npx checkly deploy --force 
