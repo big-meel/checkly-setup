@@ -37,13 +37,7 @@ jobs:
       - name: Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
-      # - name: Run checks 
-      #   id: run-checks
-      #   run: npx checkly -v && npx checkly test -e ENVIRONMENT_URL=${{ env.ENVIRONMENT_URL }} --reporter=github --record
-      # - name: Create summary # export the markdown report to the job summary.
-      #   id: create-summary
-      #   run: cat checkly-github-report.md > $GITHUB_STEP_SUMMARY
-      # - name: Deploy checks # if the test run was successful and we are on Production, deploy the checks
-      #   id: deploy-checks
       - name: Run checkly tests
         run: npx checkly test
+      - name: Deploy to checkly Account
+        run: npx checkly deploy
