@@ -51,7 +51,6 @@ const config = defineConfig({
     playwrightConfig: {
       timeout: 30000,
       use: {
-        baseURL: process.env.CHALLENGE_URL,
         viewport: { width: 1280, height: 720 },
       }
     },

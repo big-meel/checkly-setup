@@ -2,13 +2,13 @@ import { test, expect } from '@playwright/test';
 
 // Test data 
 const STANDARD_USER = {
-  username: process.env.CHALLENGE_STANDARD_USER,
-  password: process.env.CHALLENGE_STANDARD_PASSWORD
+  username: 'standard_user',
+  password: 'secret_sauce'
 };
 
 test.describe('SauceDemo Happy Path Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(process.env.CHALLENGE_URL);
+    await page.goto('https://www.saucedemo.com/v1/index.html');
   });
 
   test('add items to cart', async ({ page }) => {
