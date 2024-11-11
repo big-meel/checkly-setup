@@ -23,7 +23,7 @@ We have added a Github Actions workflow which automatically runs your checks and
 
 To allow Github Actions to authenticate your Checkly account, make sure to set the `CHECKLY_API_KEY` and `CHECKLY_ACCOUNT_ID` parameters as environment variables. You can find your Account ID in your Checkly dashboard by selecting your profile on the top right and going to your account settings. You can create an API Key by following these [steps](https://www.checklyhq.com/docs/accounts-and-users/creating-api-key/).
 
-> Be sure to add these as [secrets to your Github Action settings](https://www.checklyhq.com/docs/accounts-and-users/creating-api-key/).
+> Be sure to add these as [secrets to your Github Action settings](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 
 ## CLI Commands
 
