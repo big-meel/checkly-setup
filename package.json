@@ -1,7 +1,7 @@
 {
-  "name": "advanced-project",
+  "name": "checkly-setup-bootstrap",
   "version": "1.0.0",
-  "description": "",
+  "description": "Checkly Monitoring-As-Code bootstrap project",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {

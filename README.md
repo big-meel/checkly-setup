@@ -1,27 +1,29 @@
-# Checkly Monitoring-as-code: Advanced Project
+# Checkly Monitoring-as-code: Bootstrap Setup
 
-This example project shows how you can use the Checkly CLI in a monitoring as code (MaC) workflow. We are using the
-https://checklyhq.com website as a monitoring target.
+This repository contains a Checkly Monitoring-as-Code project that is ready to be cloned and deployed to a checkly account. Getting started is as simple as:
 
-1. Write API Checks and Playwright-powered Browser Checks.
-2. Add Alert Channels, and dry-run your Checks on 20+ global locations.
-3. Test -> Deploy: now you have your app monitored around the clock. All from your code base.
+1. Cloning this repository
+2. Installing all dependencies with `npm i`
+3. Connecting to your checkly account with `npx checkly login`
+4. Start adding your Playwright Tests! 
 
-```
-npm create checkly -- --template advanced-project
-```
+## Adding your own tests
 
-## Project Structure
+Running `npx checkly test` will look for any `.spec.ts` in `src/__checks__` directories and execute them in a dry run. We have added a `playwright-tests/` sub directory along with example tests to get you started.  
 
-This project has examples of all Checkly check types and showcases some advanced features. It also adds a GitHub Actions workflow.
+Running `npx checkly deploy` will deploy your checks to Checkly, and run them on a 12 hour schedule.
 
-- Running `npx checkly test` will look for `.check.ts` files and `.spec.ts` in `__checks__` directories and execute them in a dry run.
+> Note: This scheduled time for tests along with other default configurations can be changed in the
+> `checkly.config.ts` file. For more information on core settings and defaults please refer to the 
+> [Checkly documentation on the topic here](https://www.checklyhq.com/docs/cli/constructs-reference/)
 
-- Running `npx checkly deploy` will deploy your checks to Checkly, attach alert channels, and run them on a 10m schedule in the 
-region `us-east-1` and `eu-west-1`
+## Automatically deploying checks to Checkly
 
-- An example GitHub Actions workflow is in the `.github/workflow.yml` file. It triggers all the checks in the project and deploys
-them if they pass.
+We have added a Github Actions workflow which automatically runs your checks and deploys to Checkly whenever you run the command `git push`. 
+
+To allow Github Actions to authenticate your Checkly account, make sure to set the `CHECKLY_API_KEY` and `CHECKLY_ACCOUNT_ID` parameters as environment variables. You can find your Account ID in your Checkly dashboard by selecting your profile on the top right and going to your account settings. You can create an API Key by following these [steps](https://www.checklyhq.com/docs/accounts-and-users/creating-api-key/).
+
+> Be sure to add these as [secrets to your Github Action settings](https://www.checklyhq.com/docs/accounts-and-users/creating-api-key/).
 
 ## CLI Commands
 
@@ -36,14 +38,6 @@ Run the core CLI commands with `npx checkly <command>`
 
 [Check the docs for the full CLI reference](https://www.checklyhq.com/docs/cli/command-line-reference/).
 
-## Adding and running `@playwright/test`
-
-You can add `@playwright/test` to this project to get full code completion and run `.spec.ts` files for local debugging.
-It's best to install the Playwright npm package version that matches your [Checkly runtime](https://www.checklyhq.com/docs/cli/npm-packages/).
-
-```bash
-npm install --save-dev @playwright/test@1.38.1
-```
 
 ## Questions?
 
